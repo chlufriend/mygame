@@ -1,10 +1,15 @@
 let player = { x: 200, y: 200, size: 20 };
 let enemies = [];
 let score = 0;
+let startButton;
+let gameState = "START"
 let gameOver = false;
 
 function setup() {
   createCanvas(400, 400);
+  startButton = createButton('START GAME');
+  startButton.position(windowWidth / 2 - 50, windowHeight / 2);
+  startButton.mousePressed(startGame);
 
   // 创建多个敌人
   for (let i = 0; i < 4; i++) {
@@ -17,10 +22,24 @@ function setup() {
   }
 }
 
+function startGame(){
+  gameState = "PLAYING";
+  startButton.hide();
+  score = 0;
+}
+
+
 function draw() {
-  if (gameOver) return;
+
 
   background(30);
+
+  if (gameState === "START"){
+    fill(255);
+    textAlgn(CENTER);
+    
+    
+  }
 
   // 玩家
   fill(0, 150, 255);
@@ -62,3 +81,5 @@ function draw() {
   textSize(16);
   text("分数: " + score, 10, 20);
 }
+
+
