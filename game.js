@@ -11,6 +11,11 @@ function setup() {
   startButton.position(windowWidth / 2 - 50, windowHeight / 2);
   startButton.mousePressed(startGame);
 
+  initEnemies();
+}
+
+function initEnemies() {
+  enemies = [];
   // 创建多个敌人
   for (let i = 0; i < 4; i++) {
     enemies.push({
@@ -26,18 +31,22 @@ function startGame(){
   gameState = "PLAYING";
   startButton.hide();
   score = 0;
+  player.x = 200;
+  player.y = 200;
+  intiEnemies();
 }
 
 
 function draw() {
-
-
   background(30);
 
   if (gameState === "START"){
     fill(255);
-    textAlgn(CENTER);
-    
+    textAlign(CENTER);
+    textSize(30);
+    text("Dodge game", width / 2, 120);
+
+    return;
     
   }
 
@@ -70,8 +79,12 @@ function draw() {
     // 碰撞检测
     let d = dist(player.x, player.y, e.x, e.y);
     if (d < 20) {
-      gameOver = true;
-      alert("💥 游戏结束！你的分数是：" + score);
+      gameState = "GAMEOVER";
+      alert("💥 Game over! Your score is: " + score);
+
+      startButton.show ();
+      gameState = "START"
+      
     }
   }
 
