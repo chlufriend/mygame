@@ -4,6 +4,9 @@ let score = 0;
 let startButton;
 let gameState = "START"
 let gameOver = false;
+let baseSpeedFactor = 1.0;
+let speedIncreaseRate = 0.005;
+
 
 function setup() {
   createCanvas(400, 400);
@@ -33,6 +36,8 @@ function startGame(){
   score = 0;
   player.x = 200;
   player.y = 200;
+
+  baseSpeedFactor = 1.0;
   intiEnemies();
 }
 
@@ -64,11 +69,13 @@ function draw() {
   player.x = constrain(player.x, 0, 400);
   player.y = constrain(player.y, 0, 400);
 
+  baseSpeedFactor += speedIncreaseRate;
+
   // 敌人
   fill(255, 50, 50);
   for (let e of enemies) {
-    e.x += e.speedX;
-    e.y += e.speedY;
+    e.x += e.speedX * baseSpeedFactor;
+    e.y += e.speedY * baseSpeedFactor;
 
     // 碰墙反弹
     if (e.x < 0 || e.x > 400) e.speedX *= -1;
