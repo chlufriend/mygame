@@ -6,6 +6,7 @@ let gameState = "START"
 let gameOver = false;
 let baseSpeedFactor = 1.0;
 let speedIncreaseRate = 0.005;
+let highScore = 0;
 
 
 function setup() {
@@ -13,6 +14,11 @@ function setup() {
   startButton = createButton('START GAME');
   startButton.position(windowWidth / 2 - 50, windowHeight / 2);
   startButton.mousePressed(startGame);
+
+  let savedHighScore = localStorage.getItem("dodgeGameHighScore");
+  if (savedHighScore !== null){
+    highScore == parseInt(savedHighScore);
+  }
 
   initEnemies();
 }
@@ -51,6 +57,10 @@ function draw() {
     textSize(30);
     text("Dodge game", width / 2, 120);
 
+    textSize(18);
+    fill(255,215,0);
+    text("High Score" + highScore, width / 2, 170);
+
     return;
     
   }
@@ -87,7 +97,19 @@ function draw() {
     let d = dist(player.x, player.y, e.x, e.y);
     if (d < 20) {
       gameState = "GAMEOVER";
-      alert("💥 Game over! Your score is: " + score);
+      
+      let isNewRecord = false;
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem("dodgeGameHighScore", highScore);
+        isNewRecord = true;
+      }
+
+      if(isNewRecord) {
+        alert("New Record! \nYour score is: " + score);
+      } else{
+        alert("💥 Game over! Your score is: " + score);
+      }
 
       startButton.show ();
       gameState = "START"
@@ -100,6 +122,9 @@ function draw() {
   fill(255);
   textSize(16);
   text("分数: " + score, 10, 20);
+
+  fill(255,215,0);
+  text("High Score: " + highScore, 10, 40);
 }
 
 
