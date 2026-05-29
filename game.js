@@ -40,7 +40,7 @@ function initEnemies() {
 
 function spawnShieldItem() {
   shieldItem.x = random(40, 360);
-  shielditem.y = random(40, 360);
+  shieldItem.y = random(40, 360);
   shieldItem.isPresent = true;
 }
 
