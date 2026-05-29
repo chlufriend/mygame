@@ -139,7 +139,7 @@ baseSpeedFactor += speedIncreaseRate
       let isNewRecord = false;
       if (score > highScore) {
         highScore = score;
-        localStorage.setItem("odgeGameHighScore", highScore);
+        localStorage.setItem("dodgeGameHighScore", highScore);
         isNewRecord = true;
       }
 
