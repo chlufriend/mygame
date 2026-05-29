@@ -41,7 +41,8 @@ function initEnemies() {
 function spawnShieldItem() {
   shieldItem.x = random(40, 360);
   shielditem.y = random(40, 360);
-  ShieldItem.isPresent = true:
+  shieldItem.isPresent = true;
+}
 
 function startGame(){
   gameState = "PLAYING";
